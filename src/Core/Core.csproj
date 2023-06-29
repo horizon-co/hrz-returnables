@@ -6,7 +6,7 @@
 		<Authors>Horizon engineering team</Authors>
 		<Company>Horizon Company</Company>
 		<Version>0.1.0</Version>
-		<PackageId>Horizon.Returnables</PackageId>
+		<PackageId>HorizonCo.Returnables</PackageId>
 		<Product>Horizon.Returnables</Product>
 		<Description>Code library for Horizon applications</Description>
 		<Copyright>Copyright © 2023</Copyright>
