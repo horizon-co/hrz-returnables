@@ -1,0 +1,15 @@
+name: Hrz.Returnables-CI
+
+on:
+  pull_request:
+    pull_request: [ "main", "rc/v*", "release/v*" ]
+
+jobs:
+  build:
+    name: Build stage
+    uses: ./.github/workflows/build.yml
+  
+  test:
+    name: Test stage
+    needs: [ build ]
+    uses: ./.github/workflows/test.yml

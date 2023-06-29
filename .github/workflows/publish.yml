@@ -1,0 +1,40 @@
+name: Hrz.Returnables-CD
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+  NUGET_API_URL: ${{ secrets.NUGET_API_URL }}
+
+  PROJECT_FILE_PATH: 'src/Core/Core.csproj'
+
+jobs:
+  build:
+    name: Build stage
+    uses: ./.github/workflows/build.yml
+  
+  test:
+    name: Test stage
+    needs: [ build ]
+    uses: ./.github/workflows/test.yml
+
+  Publish:
+    name: Publishing application
+    needs: [ build, test ]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Creating project package
+      run: dotnet pack $PROJECT_FILE_PATH --configuration Release -o nupkg
+
+    - name: Publishing package on Nuget
+      run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_API_URL --skip-duplicate --api-key $NUGET_API_KEY

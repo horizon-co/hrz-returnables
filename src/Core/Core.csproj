@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Title>Horizon Returnables</Title>
+		<Authors>Horizon engineering team</Authors>
+		<Company>Horizon Company</Company>
+		<Version>0.1.0</Version>
+		<PackageId>Horizon.Returnables</PackageId>
+		<Product>Horizon.Returnables</Product>
+		<Description>Code library for Horizon applications</Description>
+		<Copyright>Copyright © 2023</Copyright>
+		<AssemblyName>Horizon.Returnables.Core</AssemblyName>
+		<RootNamespace>Horizon.Returnables.Core</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageTags>Result;Error;Returnables</PackageTags>
+		<RepositoryUrl>https://github.com/horizon-co/hrz-returnables</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
