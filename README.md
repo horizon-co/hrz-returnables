@@ -1,10 +1,10 @@
-# Event Horizon Resulting Library ![resulting](https://github.com/lucasRafaell95/hrz-operations-resulting/actions/workflows/development-ci.yml/badge.svg)
+# Horizon Returnables Library [![Hrz.Returnables-CD](https://github.com/horizon-co/hrz-returnables/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/horizon-co/hrz-returnables/actions/workflows/publish.yml)
 
 This package contains a generic, extensible implementation of a base result class.
 
 | Package                             |  Version         | Downloads       |
 | ----------------------------------- | ---------------- | --------------- |
-| `Horizon.Returnables` | [![NuGet](https://img.shields.io/nuget/v/Horizon.Returnables.svg)](https://nuget.org/packages/Horizon.Returnables) | [![Nuget](https://img.shields.io/nuget/dt/Horizon.Returnables.svg)](https://nuget.org/packages/Horizon.Returnables) |
+| `Horizon.Returnables` | [![NuGet](https://img.shields.io/nuget/v/HorizonCo.Returnables.svg)](https://nuget.org/packages/HorizonCo.Returnables) | [![Nuget](https://img.shields.io/nuget/dt/HorizonCo.Returnables.svg)](https://nuget.org/packages/HorizonCo.Returnables) |
 
 
  ## Installation
