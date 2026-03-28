@@ -1,36 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Title>Horizon Returnables</Title>
-		<Authors>Horizon engineering team</Authors>
-		<Company>Horizon Company</Company>
-		<Version>0.1.0</Version>
-		<PackageId>HorizonCo.Returnables</PackageId>
-		<Product>Horizon.Returnables</Product>
-		<Description>Code library for Horizon applications</Description>
-		<Copyright>Copyright © 2023</Copyright>
-		<AssemblyName>Horizon.Returnables.Core</AssemblyName>
-		<RootNamespace>Horizon.Returnables.Core</RootNamespace>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<PackageTags>Result;Error;Returnables</PackageTags>
-		<RepositoryUrl>https://github.com/horizon-co/hrz-returnables</RepositoryUrl>
-		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>Nullable</WarningsAsErrors>
+    <AssemblyName>Horizon.Returnables.Core</AssemblyName>
+    <RootNamespace>Horizon.Returnables.Core</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="..\..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
+  <PropertyGroup Label="NuGet">
+    <PackageId>HorizonCo.Returnables</PackageId>
+    <Title>Horizon Returnables — Result/Error Pattern for .NET</Title>
+    <Description>A lightweight, zero-dependency Result pattern library for .NET. Replace exception-driven control flow with explicit, stack-allocated Result and Result&lt;T&gt; types featuring implicit operators, nullability flow analysis, Try/TryAsync wrappers, and fluent side-effects.</Description>
+    <Authors>Horizon engineering team</Authors>
+    <Company>Horizon Company</Company>
+    <Product>Horizon.Returnables</Product>
+    <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString("yyyy")) Horizon Company</Copyright>
+    <PackageTags>result;error;result-pattern;railway;monad;either;error-handling;returnables;dotnet;csharp</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/horizon-co/hrz-returnables</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/horizon-co/hrz-returnables.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>https://github.com/horizon-co/hrz-returnables/releases</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" Condition="Exists('..\..\icon.png')" />
+  </ItemGroup>
 
 </Project>

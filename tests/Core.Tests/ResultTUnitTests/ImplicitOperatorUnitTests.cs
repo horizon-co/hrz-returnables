@@ -1,0 +1,106 @@
+namespace Horizon.Returnables.Core.Tests.ResultTUnitTests;
+
+using FluentAssertions;
+
+using Horizon.Returnables;
+
+using Xunit;
+
+[Trait("Result<TValue>", "implicit operator")]
+public sealed class ImplicitOperatorUnitTests
+{
+    [Fact]
+    public void When_Exception_Is_Assigned_Should_Create_Failed_Result()
+    {
+        // arrange
+        var error = new InvalidOperationException("fail");
+
+        // act
+        Result<int> result = error;
+
+        // assert
+        result.Failed.Should().BeTrue();
+        result.Error.Should().BeSameAs(error);
+    }
+
+    [Fact]
+    public void When_Succeeded_Result_Is_Converted_To_Value_Should_Return_Value()
+    {
+        // arrange
+        var result = Result<int>.From(42);
+
+        // act
+        int value = result;
+
+        // assert
+        value.Should().Be(42);
+    }
+
+    [Fact]
+    public void When_Failed_Result_Is_Converted_To_Value_Should_Return_Default()
+    {
+        // arrange
+        var result = Result<int>.Fail("error");
+
+        // act
+        int value = result;
+
+        // assert
+        value.Should().Be(default);
+    }
+
+    [Fact]
+    public void When_Succeeded_Result_Is_Converted_To_Exception_Should_Return_Null()
+    {
+        // arrange
+        var result = Result<int>.From(42);
+
+        // act
+        Exception? error = result;
+
+        // assert
+        error.Should().BeNull();
+    }
+
+    [Fact]
+    public void When_Failed_Result_Is_Converted_To_Exception_Should_Return_Error()
+    {
+        // arrange
+        var expected = new Exception("fail");
+        var result = Result<int>.Fail(expected);
+
+        // act
+        Exception? error = result;
+
+        // assert
+        error.Should().BeSameAs(expected);
+    }
+
+    [Fact]
+    public void When_Succeeded_Result_T_Is_Converted_To_Void_Result_Should_Be_Success()
+    {
+        // arrange
+        var resultT = Result<int>.From(42);
+
+        // act
+        Result result = resultT;
+
+        // assert
+        result.Succeeded.Should().BeTrue();
+    }
+
+    [Fact]
+    public void When_Failed_Result_T_Is_Converted_To_Void_Result_Should_Preserve_Error()
+    {
+        // arrange
+        var error = new Exception("fail");
+        var resultT = Result<int>.Fail(error);
+
+        // act
+        Result result = resultT;
+
+        // assert
+        result.Failed.Should().BeTrue();
+        result.Error.Should().BeSameAs(error);
+    }
+}
