@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="icon.png" alt="Horizon Returnables" width="120" />
+  <img src="icon.png" alt="Hrz Returnables" width="120" />
 </p>
 
-<h1 align="center">Horizon Returnables</h1>
+<h1 align="center">Hrz Returnables</h1>
 
 <p align="center">
   A lightweight, zero-dependency Result/Error pattern library for .NET.<br/>
@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://nuget.org/packages/HorizonCo.Returnables"><img src="https://img.shields.io/nuget/v/HorizonCo.Returnables.svg?style=flat-square&logo=nuget&label=NuGet" alt="NuGet Version" /></a>
-  <a href="https://nuget.org/packages/HorizonCo.Returnables"><img src="https://img.shields.io/nuget/dt/HorizonCo.Returnables.svg?style=flat-square&logo=nuget&label=Downloads" alt="NuGet Downloads" /></a>
+  <a href="https://nuget.org/packages/Hrz.Returnables"><img src="https://img.shields.io/nuget/v/Hrz.Returnables.svg?style=flat-square&logo=nuget&label=NuGet" alt="NuGet Version" /></a>
+  <a href="https://nuget.org/packages/Hrz.Returnables"><img src="https://img.shields.io/nuget/dt/Hrz.Returnables.svg?style=flat-square&logo=nuget&label=Downloads" alt="NuGet Downloads" /></a>
   <a href="https://github.com/horizon-co/hrz-returnables/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/horizon-co/hrz-returnables/ci.yml?branch=main&style=flat-square&logo=github&label=CI" alt="CI Status" /></a>
   <a href="https://github.com/horizon-co/hrz-returnables/blob/main/LICENSE"><img src="https://img.shields.io/github/license/horizon-co/hrz-returnables?style=flat-square&label=License" alt="License" /></a>
 </p>
@@ -55,13 +55,13 @@ No wrapping. No `.Success(value)` calls. No factory noise. Just return the value
 ## Installation
 
 ```bash
-dotnet add package HorizonCo.Returnables
+dotnet add package Hrz.Returnables
 ```
 
 Or via the Package Manager:
 
 ```
-PM> Install-Package HorizonCo.Returnables
+PM> Install-Package Hrz.Returnables
 ```
 
 ## Quick Start
