@@ -1,0 +1,117 @@
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+env:
+  NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+  NUGET_API_URL: ${{ secrets.NUGET_API_URL }}
+  PROJECT_FILE_PATH: src/Core/Core.csproj
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Determine version bump
+        id: bump
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          SQUASH_MSG=$(git log -1 --format=%B)
+          echo "Source branch: $BRANCH"
+
+          MAJOR_MARKER="bump-major-version"
+          HAS_MAJOR=false
+          echo "$PR_TITLE" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
+          echo "$PR_BODY" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
+          echo "$SQUASH_MSG" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
+
+          if [[ "$BRANCH" == release/* || "$BRANCH" == feat/* ]] && [ "$HAS_MAJOR" = true ]; then
+            echo "type=major" >> "$GITHUB_OUTPUT"
+          elif [[ "$BRANCH" == release/* || "$BRANCH" == feat/* ]]; then
+            echo "type=minor" >> "$GITHUB_OUTPUT"
+          elif [[ "$BRANCH" == fix/* ]]; then
+            echo "type=patch" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Only release/*, feat/* and fix/* branches can be merged to main. Got: $BRANCH"
+            exit 1
+          fi
+
+      - name: Get latest tag
+        id: latest
+        run: |
+          TAG=$(git tag -l 'v*' --sort=-v:refname | head -n 1)
+          if [ -z "$TAG" ]; then
+            TAG="v0.0.0"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "Latest tag: $TAG"
+
+      - name: Calculate next version
+        id: next
+        run: |
+          CURRENT="${{ steps.latest.outputs.tag }}"
+          CURRENT="${CURRENT#v}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+
+          BUMP="${{ steps.bump.outputs.type }}"
+          if [ "$BUMP" = "major" ]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [ "$BUMP" = "minor" ]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          elif [ "$BUMP" = "patch" ]; then
+            PATCH=$((PATCH + 1))
+          fi
+
+          VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Next version: $VERSION"
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Run tests
+        run: dotnet test --no-build --configuration Release --verbosity normal
+
+      - name: Create NuGet package
+        run: |
+          VERSION="${{ steps.next.outputs.version }}"
+          VERSION="${VERSION#v}"
+          dotnet pack $PROJECT_FILE_PATH --configuration Release -o nupkg /p:Version=$VERSION
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_API_URL --skip-duplicate --api-key $NUGET_API_KEY
+
+      - name: Create tag
+        run: |
+          git tag "${{ steps.next.outputs.version }}"
+          git push origin "${{ steps.next.outputs.version }}"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.next.outputs.version }}" \
+            --title "${{ steps.next.outputs.version }}" \
+            --generate-notes \
+            --latest
