@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Horizon Returnables (`HorizonCo.Returnables`) is a .NET 10 NuGet library implementing the Result/Error pattern for .NET applications — replacing exception-driven control flow with explicit return values.
+Horizon Returnables (`Hrz.Returnables`) is a .NET 10 NuGet library implementing the Result/Error pattern for .NET applications — replacing exception-driven control flow with explicit return values.
 
 ## Build Commands
 
@@ -35,7 +35,7 @@ dotnet format --verify-no-changes
 
 ## Architecture
 
-### `Horizon.Returnables` namespace
+### `Hrz.Returnables` namespace
 
 Lightweight `readonly struct` types using `Error` as the error carrier:
 

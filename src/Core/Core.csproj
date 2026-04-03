@@ -11,12 +11,12 @@
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
-    <PackageId>HorizonCo.Returnables</PackageId>
+    <PackageId>Hrz.Returnables</PackageId>
     <Title>Horizon Returnables — Result/Error Pattern for .NET</Title>
     <Description>A lightweight, zero-dependency Result pattern library for .NET. Replace exception-driven control flow with explicit, stack-allocated Result and Result&lt;T&gt; types featuring implicit operators, nullability flow analysis, Try/TryAsync wrappers, and fluent side-effects.</Description>
     <Authors>Horizon engineering team</Authors>
     <Company>Horizon Company</Company>
-    <Product>Horizon.Returnables</Product>
+    <Product>Hrz.Returnables</Product>
     <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString("yyyy")) Horizon Company</Copyright>
     <PackageTags>result;error;result-pattern;railway;monad;either;error-handling;returnables;dotnet;csharp</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
