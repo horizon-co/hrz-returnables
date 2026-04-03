@@ -2,7 +2,7 @@
 
 ## Project Type
 
-This is a **NuGet library package** (`HorizonCo.Returnables`), not a web application. There are no controllers, middleware, DI, or infrastructure layers. The library provides Result/Error types consumed by other Horizon projects.
+This is a **NuGet library package** (`Hrz.Returnables`), not a web application. There are no controllers, middleware, DI, or infrastructure layers. The library provides Result/Error types consumed by other Horizon projects.
 
 ## Project Structure
 
