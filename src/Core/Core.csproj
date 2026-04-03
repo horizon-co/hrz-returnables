@@ -5,18 +5,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>Nullable</WarningsAsErrors>
-    <AssemblyName>Horizon.Returnables.Core</AssemblyName>
-    <RootNamespace>Horizon.Returnables.Core</RootNamespace>
+    <AssemblyName>Hrz.Returnables.Core</AssemblyName>
+    <RootNamespace>Hrz.Returnables.Core</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
-    <PackageId>Hrz.Returnables</PackageId>
+    <PackageId>Horizontal.Returnables</PackageId>
     <Title>Horizon Returnables — Result/Error Pattern for .NET</Title>
     <Description>A lightweight, zero-dependency Result pattern library for .NET. Replace exception-driven control flow with explicit, stack-allocated Result and Result&lt;T&gt; types featuring implicit operators, nullability flow analysis, Try/TryAsync wrappers, and fluent side-effects.</Description>
     <Authors>Horizon engineering team</Authors>
     <Company>Horizon Company</Company>
-    <Product>Hrz.Returnables</Product>
+    <Product>Horizontal.Returnables</Product>
     <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString("yyyy")) Horizon Company</Copyright>
     <PackageTags>result;error;result-pattern;railway;monad;either;error-handling;returnables;dotnet;csharp</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

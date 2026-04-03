@@ -6,7 +6,7 @@
     <WarningsAsErrors>Nullable</WarningsAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Horizon.Returnables.Core.Tests</RootNamespace>
+    <RootNamespace>Hrz.Returnables.Core.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

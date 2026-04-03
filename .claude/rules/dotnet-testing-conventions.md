@@ -63,7 +63,7 @@ Each component gets its own `{Component}UnitTests/` folder. **Each public method
 
 ```csharp
 // File: tests/Core.Tests/ResultUnitTests/FailUnitTests.cs
-namespace Horizon.Returnables.Core.Tests.ResultUnitTests;
+namespace Hrz.Returnables.Core.Tests.ResultUnitTests;
 
 [Trait(nameof(Result), nameof(Result.Fail))]
 public sealed class FailUnitTests { }

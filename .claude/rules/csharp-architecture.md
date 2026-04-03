@@ -11,7 +11,7 @@ src/Core/          → library source
 tests/Core.Tests/  → unit tests
 ```
 
-## Result Types — `Horizon.Returnables` namespace
+## Result Types — `Hrz.Returnables` namespace
 
 Lightweight `readonly struct` types using `Exception` as the error carrier:
 
@@ -35,7 +35,7 @@ Production project:
   <WarningsAsErrors>Nullable</WarningsAsErrors>
   <ImplicitUsings>enable</ImplicitUsings>
   <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  <RootNamespace>Horizon.Returnables.Core</RootNamespace>
+  <RootNamespace>Hrz.Returnables.Core</RootNamespace>
   <AssemblyName>$(RootNamespace)</AssemblyName>
 </PropertyGroup>
 ```
@@ -48,7 +48,7 @@ Test project:
   <Nullable>enable</Nullable>
   <WarningsAsErrors>Nullable</WarningsAsErrors>
   <ImplicitUsings>enable</ImplicitUsings>
-  <RootNamespace>Horizon.Returnables.Core.Tests</RootNamespace>
+  <RootNamespace>Hrz.Returnables.Core.Tests</RootNamespace>
 </PropertyGroup>
 ```
 

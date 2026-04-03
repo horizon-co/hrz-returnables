@@ -15,7 +15,7 @@ Rules for writing C# code in this project. Apply these when generating, reviewin
 
 ```csharp
 // correct
-namespace Horizon.Returnables.Core.Errors;
+namespace Hrz.Returnables.Core.Errors;
 
 public record Error { }
 ```
