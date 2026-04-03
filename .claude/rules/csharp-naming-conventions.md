@@ -82,10 +82,10 @@ public enum ErrorType
 
 - PascalCase for each segment.
 - Mirror the project's folder structure exactly.
-- Format: `Horizon.Returnables`.
+- Format: `Hrz.Returnables`.
 
 ```csharp
-namespace Horizon.Returnables;
+namespace Hrz.Returnables;
 ```
 
 ## Test Naming

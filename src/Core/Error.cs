@@ -1,4 +1,4 @@
-namespace Horizon.Returnables;
+namespace Hrz.Returnables;
 
 /// <summary>
 /// Represents an error with a code and a message.

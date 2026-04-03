@@ -1,8 +1,8 @@
-namespace Horizon.Returnables.Core.Tests.ResultUnitTests;
+namespace Hrz.Returnables.Core.Tests.ResultUnitTests;
 
 using FluentAssertions;
 
-using Horizon.Returnables;
+using Hrz.Returnables;
 
 using Xunit;
 

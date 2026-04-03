@@ -25,7 +25,7 @@ Exceptions are expensive, invisible in method signatures, and easy to forget. Th
 Returnables gives you this pattern with **zero boilerplate**:
 
 ```csharp
-using Horizon.Returnables;
+using Hrz.Returnables;
 
 public Result<User> GetUser(int id)
 {
@@ -71,7 +71,7 @@ PM> Install-Package Hrz.Returnables
 For commands and side-effects that don't return a value:
 
 ```csharp
-using Horizon.Returnables;
+using Hrz.Returnables;
 
 public Result DeleteUser(int id)
 {

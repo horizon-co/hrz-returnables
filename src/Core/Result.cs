@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace Horizon.Returnables;
+namespace Hrz.Returnables;
 
 /// <summary>
 /// Represents the outcome of an operation that does not return a value.
