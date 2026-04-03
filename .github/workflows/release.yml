@@ -5,6 +5,18 @@ on:
     types: [closed]
     branches: [main]
 
+  workflow_dispatch:
+    inputs:
+      bump-type:
+        description: 'Bump Type (major, minor ou patch)'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
 env:
   NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   NUGET_API_URL: ${{ secrets.NUGET_API_URL }}
@@ -12,7 +24,9 @@ env:
 
 jobs:
   release:
-    if: github.event.pull_request.merged == true
+    if: >
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+      (github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,29 +44,44 @@ jobs:
       - name: Determine version bump
         id: bump
         env:
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title || '' }}
+          PR_BODY: ${{ github.event.pull_request.body || '' }}
+          MANUAL_BUMP: ${{ inputs.bump-type || '' }}
         run: |
-          BRANCH="${{ github.event.pull_request.head.ref }}"
-          SQUASH_MSG=$(git log -1 --format=%B)
-          echo "Source branch: $BRANCH"
+          echo "Event: ${{ github.event_name }}"
 
-          MAJOR_MARKER="bump-major-version"
-          HAS_MAJOR=false
-          echo "$PR_TITLE" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
-          echo "$PR_BODY" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
-          echo "$SQUASH_MSG" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
-
-          if [[ "$BRANCH" == release/* || "$BRANCH" == feat/* ]] && [ "$HAS_MAJOR" = true ]; then
-            echo "type=major" >> "$GITHUB_OUTPUT"
-          elif [[ "$BRANCH" == release/* || "$BRANCH" == feat/* ]]; then
-            echo "type=minor" >> "$GITHUB_OUTPUT"
-          elif [[ "$BRANCH" == fix/* ]]; then
-            echo "type=patch" >> "$GITHUB_OUTPUT"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            BUMP_TYPE="${{ inputs.bump-type }}"
+            SOURCE_BRANCH="manual-trigger"
+            echo "Manual trigger selected: $BUMP_TYPE"
           else
-            echo "::error::Only release/*, feat/* and fix/* branches can be merged to main. Got: $BRANCH"
-            exit 1
+            # Lógica original para PR
+            BRANCH="${{ github.event.pull_request.head.ref }}"
+            SQUASH_MSG=$(git log -1 --format=%B)
+            echo "Source branch: $BRANCH"
+
+            MAJOR_MARKER="bump-major-version"
+            HAS_MAJOR=false
+            echo "$PR_TITLE" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
+            echo "$PR_BODY"  | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
+            echo "$SQUASH_MSG" | grep -qi "$MAJOR_MARKER" && HAS_MAJOR=true
+
+            if [[ "$BRANCH" == release/* || "$BRANCH" == feat/* ]] && [ "$HAS_MAJOR" = true ]; then
+              BUMP_TYPE="major"
+            elif [[ "$BRANCH" == release/* || "$BRANCH" == feat/* ]]; then
+              BUMP_TYPE="minor"
+            elif [[ "$BRANCH" == fix/* ]]; then
+              BUMP_TYPE="patch"
+            else
+              echo "::error::Only release/*, feat/* and fix/* branches can be merged to main. Got: $BRANCH"
+              exit 1
+            fi
+            SOURCE_BRANCH="$BRANCH"
           fi
+
+          echo "bump_type=$BUMP_TYPE" >> "$GITHUB_OUTPUT"
+          echo "source_branch=$SOURCE_BRANCH" >> "$GITHUB_OUTPUT"
+          echo "Final bump type: $BUMP_TYPE"
 
       - name: Get latest tag
         id: latest
@@ -71,7 +100,7 @@ jobs:
           CURRENT="${CURRENT#v}"
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
 
-          BUMP="${{ steps.bump.outputs.type }}"
+          BUMP="${{ steps.bump.outputs.bump_type }}"
           if [ "$BUMP" = "major" ]; then
             MAJOR=$((MAJOR + 1))
             MINOR=0
